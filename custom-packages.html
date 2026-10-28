@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Packages — Pentech Devs</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="nav">
+    <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <span></span>
+      <span></span>
+    </button>
+    <a href="index.html" class="brand">Pentech Devs</a>
+    <a href="#contact" class="nav-contact">Let's talk</a>
+  </nav>
+
+  <header class="page-head" id="top">
+    <p class="hero-eyebrow">Custom packages</p>
+    <h1 class="hero-title">Build your own,<br><span class="contact-title-fade">pay for what you need.</span></h1>
+    <p class="hero-text">Portfolios, CV sites and landing pages, put together piece by piece. Students and recent graduates get a better deal.</p>
+  </header>
+
+  <main>
+    <section class="deals" id="deals" aria-labelledby="deals-heading">
+      <div class="deals-head">
+        <h2 class="deals-eyebrow" id="deals-heading">Deals <span class="work-count">(02)</span></h2>
+        <p class="deals-intro" data-reveal-words>We started out as students. A good portfolio shouldn't cost more than your first month's salary.</p>
+      </div>
+
+      <div class="deal-grid">
+        <article class="deal" aria-labelledby="deal-student">
+          <p class="deal-amount">30%<span>off</span></p>
+          <h3 class="deal-name" id="deal-student">Student deal</h3>
+          <p class="deal-text">For anyone currently studying at a university, college or TVET.</p>
+          <ul class="tier-list">
+            <li>Valid student card or proof of registration</li>
+            <li>Applies to any custom package</li>
+            <li>Same team, same quality, same care</li>
+          </ul>
+          <a href="#builder" class="tier-cta" data-pick-deal="student">Build with the student deal <span aria-hidden="true">&rarr;</span></a>
+        </article>
+
+        <article class="deal" aria-labelledby="deal-graduate">
+          <p class="deal-amount">20%<span>off</span></p>
+          <h3 class="deal-name" id="deal-graduate">Graduate deal</h3>
+          <p class="deal-text">For anyone who finished their studies in the last 12 months and is job hunting.</p>
+          <ul class="tier-list">
+            <li>Certificate or academic record from the last 12 months</li>
+            <li>Applies to any custom package</li>
+            <li>A free review of your CV content before launch</li>
+          </ul>
+          <a href="#builder" class="tier-cta" data-pick-deal="graduate">Build with the graduate deal <span aria-hidden="true">&rarr;</span></a>
+        </article>
+      </div>
+    </section>
+
+    <section class="builder" id="builder" aria-labelledby="builder-heading">
+      <div class="builder-head">
+        <h2 class="builder-eyebrow" id="builder-heading">Package builder</h2>
+        <p class="builder-intro" data-reveal-words>Pick a starting point, add what you need and see your estimate change as you go.</p>
+      </div>
+
+      <div class="builder-body">
+        <form class="builder-form" aria-label="Package builder">
+          <fieldset class="builder-step">
+            <legend class="builder-legend"><span class="builder-num">01</span>Choose a starting point</legend>
+            <div class="option-grid">
+              <label class="option">
+                <input type="radio" name="base" value="portfolio" data-label="Portfolio site" data-price="2500" checked>
+                <span class="option-body">
+                  <span class="option-name">Portfolio site</span>
+                  <span class="option-desc">Your projects, skills and story on one polished page.</span>
+                  <span class="option-price">R2 500</span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="base" value="cv" data-label="CV website" data-price="1500">
+                <span class="option-body">
+                  <span class="option-name">CV website</span>
+                  <span class="option-desc">Your CV as a clean link you can send to any recruiter.</span>
+                  <span class="option-price">R1 500</span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="base" value="landing" data-label="Landing page" data-price="2000">
+                <span class="option-body">
+                  <span class="option-name">Landing page</span>
+                  <span class="option-desc">One page for a side project, event or small business.</span>
+                  <span class="option-price">R2 000</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="builder-step">
+            <legend class="builder-legend"><span class="builder-num">02</span>Add what you need</legend>
+            <div class="addon-list">
+              <div class="addon addon-pages">
+                <span class="addon-info">
+                  <span class="addon-name" id="pages-label">Extra pages</span>
+                  <span class="addon-desc">Case studies, an about page or a project gallery. R400 each.</span>
+                </span>
+                <span class="stepper">
+                  <button class="stepper-btn" type="button" data-step="-1" aria-label="Remove a page">&minus;</button>
+                  <input class="stepper-input" type="number" name="pages" value="0" min="0" max="5" data-price="400" aria-labelledby="pages-label">
+                  <button class="stepper-btn" type="button" data-step="1" aria-label="Add a page">+</button>
+                </span>
+              </div>
+              <label class="addon">
+                <input type="checkbox" name="addon" data-label="Contact form" data-price="300">
+                <span class="addon-box" aria-hidden="true"></span>
+                <span class="addon-info">
+                  <span class="addon-name">Contact form</span>
+                  <span class="addon-desc">Messages go straight to your inbox.</span>
+                </span>
+                <span class="addon-price">R300</span>
+              </label>
+              <label class="addon">
+                <input type="checkbox" name="addon" data-label="Downloadable CV" data-price="200">
+                <span class="addon-box" aria-hidden="true"></span>
+                <span class="addon-info">
+                  <span class="addon-name">Downloadable CV</span>
+                  <span class="addon-desc">A matching PDF version of your CV.</span>
+                </span>
+                <span class="addon-price">R200</span>
+              </label>
+              <label class="addon">
+                <input type="checkbox" name="addon" data-label="Blog section" data-price="800">
+                <span class="addon-box" aria-hidden="true"></span>
+                <span class="addon-info">
+                  <span class="addon-name">Blog section</span>
+                  <span class="addon-desc">Write about what you're learning and building.</span>
+                </span>
+                <span class="addon-price">R800</span>
+              </label>
+              <label class="addon">
+                <input type="checkbox" name="addon" data-label="Animations and interactions" data-price="600">
+                <span class="addon-box" aria-hidden="true"></span>
+                <span class="addon-info">
+                  <span class="addon-name">Animations and interactions</span>
+                  <span class="addon-desc">Scroll effects and details that make it memorable.</span>
+                </span>
+                <span class="addon-price">R600</span>
+              </label>
+              <label class="addon">
+                <input type="checkbox" name="addon" data-label="Light and dark mode" data-price="300">
+                <span class="addon-box" aria-hidden="true"></span>
+                <span class="addon-info">
+                  <span class="addon-name">Light and dark mode</span>
+                  <span class="addon-desc">Visitors choose the theme they prefer.</span>
+                </span>
+                <span class="addon-price">R300</span>
+              </label>
+              <label class="addon">
+                <input type="checkbox" name="addon" data-label="SEO and Google setup" data-price="400">
+                <span class="addon-box" aria-hidden="true"></span>
+                <span class="addon-info">
+                  <span class="addon-name">SEO and Google setup</span>
+                  <span class="addon-desc">Help recruiters find you when they search your name.</span>
+                </span>
+                <span class="addon-price">R400</span>
+              </label>
+              <label class="addon">
+                <input type="checkbox" name="addon" data-label="Custom domain setup" data-price="300">
+                <span class="addon-box" aria-hidden="true"></span>
+                <span class="addon-info">
+                  <span class="addon-name">Custom domain setup</span>
+                  <span class="addon-desc">yourname.co.za connected and working. Domain cost not included.</span>
+                </span>
+                <span class="addon-price">R300</span>
+              </label>
+              <label class="addon">
+                <input type="checkbox" name="addon" data-label="Hosting for 12 months" data-price="900">
+                <span class="addon-box" aria-hidden="true"></span>
+                <span class="addon-info">
+                  <span class="addon-name">Hosting for 12 months</span>
+                  <span class="addon-desc">We keep it online, backed up and secure for a year.</span>
+                </span>
+                <span class="addon-price">R900</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="builder-step">
+            <legend class="builder-legend"><span class="builder-num">03</span>Apply a deal</legend>
+            <div class="option-grid">
+              <label class="option">
+                <input type="radio" name="deal" value="none" data-label="No deal" data-discount="0" checked>
+                <span class="option-body">
+                  <span class="option-name">No deal</span>
+                  <span class="option-desc">Standard pricing.</span>
+                  <span class="option-price">0%</span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="deal" value="student" data-label="Student deal (30%)" data-discount="0.3">
+                <span class="option-body">
+                  <span class="option-name">Student</span>
+                  <span class="option-desc">Currently studying, with proof.</span>
+                  <span class="option-price">30% off</span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="deal" value="graduate" data-label="Graduate deal (20%)" data-discount="0.2">
+                <span class="option-body">
+                  <span class="option-name">Graduate</span>
+                  <span class="option-desc">Graduated in the last 12 months.</span>
+                  <span class="option-price">20% off</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+        </form>
+
+        <aside class="summary" aria-labelledby="summary-heading">
+          <p class="summary-label" id="summary-heading">Your package</p>
+          <ul class="summary-list">
+            <li><span>Portfolio site</span><span>R2 500</span></li>
+          </ul>
+          <dl class="summary-totals">
+            <div>
+              <dt>Subtotal</dt>
+              <dd class="summary-subtotal">R2 500</dd>
+            </div>
+            <div class="summary-discount-row" hidden>
+              <dt class="summary-discount-label">Deal</dt>
+              <dd class="summary-discount">&minus;R0</dd>
+            </div>
+          </dl>
+          <p class="summary-label">Estimated total</p>
+          <p class="summary-total" aria-live="polite">R2 500</p>
+          <a class="tier-cta summary-send" href="mailto:hello@example.com?subject=Custom%20package%20quote">Send this to us <span aria-hidden="true">&rarr;</span></a>
+          <p class="summary-note">This is an estimate. We confirm the final price in a fixed quote, and deals need proof of student or graduate status.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-heading">
+      <p class="contact-eyebrow">Contact</p>
+      <h2 class="contact-title" id="contact-heading">
+        Need something else?<br>
+        <span class="contact-title-fade">Just ask.</span>
+      </h2>
+
+      <div class="contact-email-row">
+        <a href="mailto:hello@example.com" class="contact-email">hello@example.com</a>
+        <button class="contact-copy" type="button" data-email="hello@example.com">Copy</button>
+        <span class="contact-copy-status" role="status" aria-live="polite"></span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <p class="footer-tagline">A creative collective.<br>Built together, step by step.</p>
+
+      <div class="footer-col">
+        <p class="footer-label">Navigate</p>
+        <ul class="footer-links">
+          <li><a href="index.html#work">Work</a></li>
+          <li><a href="collective.html">About</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-label">Follow</p>
+        <ul class="footer-links">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Behance</a></li>
+          <li><a href="#">Dribbble</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-label">Studio</p>
+        <ul class="footer-links">
+          <li>City, Country</li>
+          <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-wordmark" aria-hidden="true">
+      <span>Pentech Devs</span>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Pentech Devs. All rights reserved.</p>
+      <a href="#top" class="footer-back">Back to top <span aria-hidden="true">&uarr;</span></a>
+    </div>
+  </footer>
+
+  <div class="menu" id="menu" inert>
+    <div class="menu-inner">
+      <section class="menu-group">
+        <h2 class="menu-label">About Us</h2>
+        <span class="menu-number" aria-hidden="true">01</span>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <a href="collective.html" class="menu-link">
+              <span class="menu-index">1.</span>
+              <span class="menu-title">Collective Solutions</span>
+              <span class="menu-desc">What Pentech Devs is about and how it started</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="perspectives.html" class="menu-link">
+              <span class="menu-index">2.</span>
+              <span class="menu-title">Individual Perspectives</span>
+              <span class="menu-desc">Take a look at how we individually approach our work</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="menu-group">
+        <h2 class="menu-label">Our Work</h2>
+        <span class="menu-number" aria-hidden="true">02</span>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <a href="services.html" class="menu-link">
+              <span class="menu-index">3.</span>
+              <span class="menu-title">Services</span>
+              <span class="menu-desc">What we build and how we can help</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="case-studies.html" class="menu-link">
+              <span class="menu-index">4.</span>
+              <span class="menu-title">Case Studies</span>
+              <span class="menu-desc">A closer look at projects we've delivered</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="menu-group">
+        <h2 class="menu-label">Our Process</h2>
+        <span class="menu-number" aria-hidden="true">03</span>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <a href="testimonies.html" class="menu-link">
+              <span class="menu-index">5.</span>
+              <span class="menu-title">Testimonies</span>
+              <span class="menu-desc">What our clients say about working with us</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="pricing.html" class="menu-link">
+              <span class="menu-index">6.</span>
+              <span class="menu-title">Pricing</span>
+              <span class="menu-desc">Packages, prices and how payment works</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <p class="menu-issue">Pentech Devs &bull; 2026</p>
+    </div>
+  </div>
+
+  <div class="cursor" aria-hidden="true">
+    <span class="cursor-ring"></span>
+    <span class="cursor-dot"></span>
+  </div>
+</body>
+</html>
