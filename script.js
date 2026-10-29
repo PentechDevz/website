@@ -1,3 +1,71 @@
+// Intro loader: draw the PD mark with a moving pen, reveal the logo, then lift the screen once the page has loaded.
+const loader = document.querySelector(".site-loader");
+
+if (loader && document.documentElement.classList.contains("has-loader")) {
+  const root = document.documentElement;
+  const paths = [...loader.querySelectorAll("path")];
+  const pen = loader.querySelector(".loader-pen");
+  const lengths = paths.map((path) => path.getTotalLength());
+  const total = lengths.reduce((sum, length) => sum + length, 0);
+  const drawTime = 1800;
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+  const pageLoaded = new Promise((resolve) => {
+    if (document.readyState === "complete") resolve();
+    else window.addEventListener("load", resolve, { once: true });
+    setTimeout(resolve, 3000);
+  });
+
+  try {
+    sessionStorage.setItem("pd-intro-seen", "1");
+  } catch {}
+
+  paths.forEach((path, i) => {
+    path.style.strokeDasharray = lengths[i];
+    path.style.strokeDashoffset = lengths[i];
+  });
+
+  const drawn = new Promise((resolve) => {
+    let start;
+    function frame(now) {
+      start ??= now;
+      const progress = Math.min((now - start) / drawTime, 1);
+      let remaining = easeInOut(progress) * total;
+
+      paths.forEach((path, i) => {
+        const length = Math.min(Math.max(remaining, 0), lengths[i]);
+        path.style.strokeDashoffset = lengths[i] - length;
+        if (remaining > 0 && remaining <= lengths[i]) {
+          const point = path.getPointAtLength(length);
+          pen.setAttribute("cx", point.x);
+          pen.setAttribute("cy", point.y);
+        }
+        remaining -= lengths[i];
+      });
+
+      if (progress < 1) requestAnimationFrame(frame);
+      else resolve();
+    }
+    requestAnimationFrame(frame);
+  });
+
+  drawn
+    .then(() => {
+      loader.classList.add("is-drawn");
+      return Promise.all([pageLoaded, wait(900)]);
+    })
+    .then(() => {
+      root.classList.remove("is-loading");
+      loader.classList.add("is-leaving");
+      return wait(1000);
+    })
+    .then(() => {
+      root.classList.remove("has-loader");
+      loader.remove();
+    });
+}
+
 const menuBtn = document.querySelector(".menu-btn");
 const menu = document.getElementById("menu");
 
@@ -196,7 +264,8 @@ if (copyBtn && navigator.clipboard) {
   copyBtn.hidden = true;
 }
 
-// Contact page: messages are delivered to our inbox by Web3Forms (web3forms.com), so the site needs no back end.
+// Contact page: messages are delivered to our inbox by EmailJS (emailjs.com), so the site needs no back end.
+// The email's design lives in email-templates/enquiry-notification.html, pasted into the EmailJS dashboard.
 const enquiryForm = document.querySelector(".enquiry-form");
 
 if (enquiryForm) {
@@ -205,34 +274,47 @@ if (enquiryForm) {
   const sendLabel = sendBtn.innerHTML;
   const email = enquiryForm.dataset.email;
 
+  const escapeHtml = (text) =>
+    text.replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+
   enquiryForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(enquiryForm);
     const name = data.get("name").trim();
+    const company = data.get("company").trim();
 
     sendBtn.disabled = true;
     sendBtn.textContent = "Sending…";
     status.textContent = "";
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          access_key: enquiryForm.dataset.accessKey,
-          subject: `New enquiry from ${name}`,
-          from_name: "Pentech Devs website",
-          botcheck: data.get("botcheck") === "on",
-          name,
-          email: data.get("email").trim(),
-          company: data.get("company").trim() || "—",
-          "looking for": data.get("need"),
-          budget: data.get("budget"),
-          message: data.get("message").trim(),
-        }),
-      });
-      const result = await response.json();
-      if (!result.success) throw new Error(result.message);
+      // Bots tend to tick the hidden spam trap; act as if it sent, but don't use up the monthly quota.
+      if (data.get("botcheck") !== "on") {
+        const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            service_id: enquiryForm.dataset.serviceId,
+            template_id: enquiryForm.dataset.templateId,
+            user_id: enquiryForm.dataset.publicKey,
+            template_params: {
+              name,
+              email: data.get("email").trim(),
+              company: company || "Not given",
+              sender: company ? `${name} (${company})` : name,
+              need: data.get("need"),
+              budget: data.get("budget"),
+              message_html: escapeHtml(data.get("message").trim()).replace(/\r?\n/g, "<br>"),
+              received: new Date().toLocaleString("en-ZA", {
+                timeZone: "Africa/Johannesburg",
+                dateStyle: "full",
+                timeStyle: "short",
+              }),
+            },
+          }),
+        });
+        if (!response.ok) throw new Error(await response.text());
+      }
 
       enquiryForm.reset();
       status.textContent = `Thanks, ${name}. Your message is on its way and we'll be in touch within one working day.`;

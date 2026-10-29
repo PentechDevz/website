@@ -3,6 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // Intro loader: on the first page of a visit and on every refresh, skipped for reduced motion, and cleared after 8s even if script.js never runs.
+    try {
+      var nav = performance.getEntriesByType("navigation")[0];
+      var isReload = nav && nav.type === "reload";
+      if ((isReload || !sessionStorage.getItem("pd-intro-seen")) && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        var root = document.documentElement;
+        root.classList.add("has-loader", "is-loading");
+        setTimeout(function () { root.classList.remove("has-loader", "is-loading"); }, 8000);
+      }
+    } catch (e) {}
+  </script>
   <title>Individual Perspectives — Pentech Devs</title>
   <link rel="icon" type="image/png" href="images/logo.png">
   <link rel="apple-touch-icon" href="images/logo.png">
@@ -10,6 +22,17 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+  <div class="site-loader" role="status" aria-label="Loading Pentech Devs">
+    <svg class="loader-mark" viewBox="455 540 1020 857" aria-hidden="true">
+      <image class="loader-logo" href="images/logo-light.png" x="455" y="540" width="1020" height="857"/>
+      <path d="M 533 1390 L 533 1180 C 533 1100 580 1065 660 1065 L 820 1065 C 960 1065 1052 960 1052 842 C 1052 720 960 620 820 620 L 533 620 L 533 980"/>
+      <path d="M 835 770 C 945 770 945 932 835 932 Z"/>
+      <path d="M 893 1175 L 893 1315 L 1050 1315 C 1250 1315 1398 1170 1398 965 C 1398 790 1290 650 1090 585 C 1060 570 1030 555 1000 545"/>
+      <circle class="loader-pen" cx="533" cy="1390" r="10"/>
+    </svg>
+    <p class="loader-name" aria-hidden="true">Pentech Devs</p>
+  </div>
+
   <nav class="nav">
     <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
       <span></span>
@@ -401,10 +424,10 @@
       <div class="footer-col">
         <p class="footer-label">Follow</p>
         <ul class="footer-links">
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">Behance</a></li>
-          <li><a href="#">Dribbble</a></li>
+          <li><a href="https://www.instagram.com/pentechdevs/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.linkedin.com/in/pentech-devs-350a38447" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.tiktok.com/@pentech.devs" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="https://www.facebook.com/profile.php?id=61595977352845" target="_blank" rel="noopener">Facebook</a></li>
         </ul>
       </div>
 
