@@ -196,6 +196,55 @@ if (copyBtn && navigator.clipboard) {
   copyBtn.hidden = true;
 }
 
+// Contact page: messages are delivered to our inbox by Web3Forms (web3forms.com), so the site needs no back end.
+const enquiryForm = document.querySelector(".enquiry-form");
+
+if (enquiryForm) {
+  const status = enquiryForm.querySelector(".enquiry-status");
+  const sendBtn = enquiryForm.querySelector(".enquiry-send");
+  const sendLabel = sendBtn.innerHTML;
+  const email = enquiryForm.dataset.email;
+
+  enquiryForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const data = new FormData(enquiryForm);
+    const name = data.get("name").trim();
+
+    sendBtn.disabled = true;
+    sendBtn.textContent = "Sending…";
+    status.textContent = "";
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: enquiryForm.dataset.accessKey,
+          subject: `New enquiry from ${name}`,
+          from_name: "Pentech Devs website",
+          botcheck: data.get("botcheck") === "on",
+          name,
+          email: data.get("email").trim(),
+          company: data.get("company").trim() || "—",
+          "looking for": data.get("need"),
+          budget: data.get("budget"),
+          message: data.get("message").trim(),
+        }),
+      });
+      const result = await response.json();
+      if (!result.success) throw new Error(result.message);
+
+      enquiryForm.reset();
+      status.textContent = `Thanks, ${name}. Your message is on its way and we'll be in touch within one working day.`;
+    } catch {
+      status.textContent = `Sorry, your message couldn't be sent. Please try again, or email us directly at ${email}.`;
+    } finally {
+      sendBtn.disabled = false;
+      sendBtn.innerHTML = sendLabel;
+    }
+  });
+}
+
 // Perspectives: each member's initial rises into place as their profile scrolls in.
 const people = document.querySelectorAll(".person");
 

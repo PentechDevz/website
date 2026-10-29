@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Pentech Devs</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="apple-touch-icon" href="images/logo.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="nav">
+    <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <span></span>
+      <span></span>
+    </button>
+    <a href="index.html" class="brand"><img class="brand-logo" src="images/logo-light.png" alt="" width="238" height="200">Pentech Devs</a>
+    <a href="#enquiry" class="nav-contact">Let's talk</a>
+  </nav>
+
+  <header class="page-head" id="top">
+    <p class="hero-eyebrow">Contact us</p>
+    <h1 class="hero-title">Got an idea?<br><span class="contact-title-fade">Let's build it together.</span></h1>
+    <p class="hero-text">Tell us a little about your project and we'll get back to you within one working day.</p>
+  </header>
+
+  <main>
+    <section class="builder" id="enquiry" aria-labelledby="enquiry-heading">
+      <div class="builder-head">
+        <h2 class="builder-eyebrow" id="enquiry-heading">Start a project</h2>
+        <p class="builder-intro" data-reveal-words>A few details now saves a few emails later. Rough answers are fine.</p>
+      </div>
+
+      <div class="builder-body">
+        <form class="enquiry-form" aria-label="Contact form" data-email="info@pentechdevs.com" data-access-key="b4189da5-a997-4ec4-b492-988c6b1c67b6">
+          <!-- Spam trap: hidden from people, bots tend to tick it -->
+          <input class="enquiry-trap" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <fieldset class="builder-step">
+            <legend class="builder-legend"><span class="builder-num">01</span>What do you need?</legend>
+            <div class="option-grid option-grid-4">
+              <label class="option">
+                <input type="radio" name="need" value="A website" required>
+                <span class="option-body">
+                  <span class="option-name">Website</span>
+                  <span class="option-desc">A new site, or a fresh start for the one you have.</span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="need" value="A web app">
+                <span class="option-body">
+                  <span class="option-name">Web app</span>
+                  <span class="option-desc">Booking systems, dashboards and tools built around your team.</span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="need" value="UI/UX design">
+                <span class="option-body">
+                  <span class="option-name">UI/UX design</span>
+                  <span class="option-desc">Research, wireframes and prototypes before anything gets built.</span>
+                </span>
+              </label>
+              <label class="option">
+                <input type="radio" name="need" value="Not sure yet">
+                <span class="option-body">
+                  <span class="option-name">Not sure yet</span>
+                  <span class="option-desc">Tell us the problem and we'll help you work out the rest.</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="builder-step">
+            <legend class="builder-legend"><span class="builder-num">02</span>About you</legend>
+            <div class="field-grid">
+              <div class="field">
+                <label class="field-label" for="enquiry-name">Name</label>
+                <input class="field-input" id="enquiry-name" type="text" name="name" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label class="field-label" for="enquiry-email">Email</label>
+                <input class="field-input" id="enquiry-email" type="email" name="email" autocomplete="email" required>
+              </div>
+              <div class="field">
+                <label class="field-label" for="enquiry-company">Company <span class="field-optional">(optional)</span></label>
+                <input class="field-input" id="enquiry-company" type="text" name="company" autocomplete="organization">
+              </div>
+              <div class="field">
+                <label class="field-label" for="enquiry-budget">Budget</label>
+                <select class="field-input" id="enquiry-budget" name="budget">
+                  <option>Not sure yet</option>
+                  <option>Under R5 000</option>
+                  <option>R5 000 – R15 000</option>
+                  <option>R15 000 – R40 000</option>
+                  <option>R40 000+</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="builder-step">
+            <legend class="builder-legend"><span class="builder-num">03</span>Your project</legend>
+            <div class="field">
+              <label class="field-label" for="enquiry-message">What are you hoping to build?</label>
+              <textarea class="field-input" id="enquiry-message" name="message" rows="6" placeholder="Who it's for, what it should do, any deadlines…" required></textarea>
+            </div>
+          </fieldset>
+
+          <div class="enquiry-actions">
+            <button class="tier-cta enquiry-send" type="submit">Send message <span aria-hidden="true">&rarr;</span></button>
+            <p class="enquiry-note">We reply from info@pentechdevs.com, usually within one working day.</p>
+            <p class="enquiry-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <aside class="contact-details" aria-label="Contact details">
+          <div class="detail">
+            <p class="detail-label">Email</p>
+            <p class="detail-value"><a href="mailto:info@pentechdevs.com">info@pentechdevs.com</a></p>
+            <button class="contact-copy" type="button" data-email="info@pentechdevs.com">Copy</button>
+            <span class="contact-copy-status" role="status" aria-live="polite"></span>
+          </div>
+          <div class="detail">
+            <p class="detail-label">Response time</p>
+            <p class="detail-value">Within one working day</p>
+          </div>
+          <div class="detail">
+            <p class="detail-label">Follow</p>
+            <ul class="detail-links">
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">LinkedIn</a></li>
+              <li><a href="#">Behance</a></li>
+              <li><a href="#">Dribbble</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="process" id="next" aria-labelledby="next-heading">
+      <div class="process-head">
+        <h2 class="process-eyebrow" id="next-heading">What happens next <span class="work-count">(03)</span></h2>
+        <p class="process-intro" data-reveal-words>No sales pitch. Just a conversation about what you need.</p>
+      </div>
+
+      <ol class="steps steps-3">
+        <li class="step">
+          <span class="step-num">01</span>
+          <h3 class="step-title">We reply</h3>
+          <p class="step-text">Within one working day, with any questions we have about your project.</p>
+        </li>
+        <li class="step">
+          <span class="step-num">02</span>
+          <h3 class="step-title">We talk</h3>
+          <p class="step-text">A short call to understand your goals, your users and your timeline.</p>
+        </li>
+        <li class="step">
+          <span class="step-num">03</span>
+          <h3 class="step-title">You get a plan</h3>
+          <p class="step-text">A clear proposal with scope, price and dates. No obligation to go ahead.</p>
+        </li>
+      </ol>
+
+      <a href="pricing.html" class="next-page">
+        <span class="next-page-label">Want a ballpark first?</span>
+        <span class="next-page-title">See pricing <span class="next-page-arrow" aria-hidden="true">&rarr;</span></span>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img class="footer-logo" src="images/logo-light.png" alt="Pentech Devs logo" width="238" height="200">
+        <p class="footer-tagline">A creative collective.<br>Built together, step by step.</p>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-label">Navigate</p>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="#enquiry">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-label">Follow</p>
+        <ul class="footer-links">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Behance</a></li>
+          <li><a href="#">Dribbble</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-label">Get in touch</p>
+        <ul class="footer-links">
+          <li><a href="mailto:info@pentechdevs.com">info@pentechdevs.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-wordmark" aria-hidden="true">
+      <span>Pentech Devs</span>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Pentech Devs. All rights reserved.</p>
+      <a href="#top" class="footer-back">Back to top <span aria-hidden="true">&uarr;</span></a>
+    </div>
+  </footer>
+
+  <div class="menu" id="menu" inert>
+    <div class="menu-inner">
+      <section class="menu-group">
+        <h2 class="menu-label">About Us</h2>
+        <span class="menu-number" aria-hidden="true">01</span>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <a href="collective.html" class="menu-link">
+              <span class="menu-index">1.</span>
+              <span class="menu-title">Collective Solutions</span>
+              <span class="menu-desc">What Pentech Devs is about and how it started</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="perspectives.html" class="menu-link">
+              <span class="menu-index">2.</span>
+              <span class="menu-title">Individual Perspectives</span>
+              <span class="menu-desc">Take a look at how we individually approach our work</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="menu-group">
+        <h2 class="menu-label">Our Work</h2>
+        <span class="menu-number" aria-hidden="true">02</span>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <a href="services.html" class="menu-link">
+              <span class="menu-index">3.</span>
+              <span class="menu-title">Services</span>
+              <span class="menu-desc">What we build and how we can help</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="case-studies.html" class="menu-link">
+              <span class="menu-index">4.</span>
+              <span class="menu-title">Case Studies</span>
+              <span class="menu-desc">A closer look at projects we've delivered</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section class="menu-group">
+        <h2 class="menu-label">Our Process</h2>
+        <span class="menu-number" aria-hidden="true">03</span>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <a href="testimonies.html" class="menu-link">
+              <span class="menu-index">5.</span>
+              <span class="menu-title">Testimonies</span>
+              <span class="menu-desc">What our clients say about working with us</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="pricing.html" class="menu-link">
+              <span class="menu-index">6.</span>
+              <span class="menu-title">Pricing</span>
+              <span class="menu-desc">Packages, prices and how payment works</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <p class="menu-issue">Pentech Devs &bull; 2026 <a href="contact.html" class="menu-contact" aria-current="page">Contact us <span aria-hidden="true">&rarr;</span></a></p>
+    </div>
+  </div>
+
+  <div class="cursor" aria-hidden="true">
+    <span class="cursor-ring"></span>
+    <span class="cursor-dot"></span>
+  </div>
+</body>
+</html>
