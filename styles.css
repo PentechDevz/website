@@ -2251,6 +2251,76 @@ body.menu-open {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+/* The package someone picked on the pricing or custom packages page */
+.package-pick {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 28px;
+  border-radius: 4px;
+  background: var(--cream);
+  color: var(--menu-bg);
+}
+
+.package-pick[hidden] {
+  display: none;
+}
+
+.package-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.package-name {
+  margin-top: 10px;
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  line-height: 1.1;
+}
+
+.package-price {
+  margin-top: 6px;
+  font-size: 1rem;
+  color: var(--stone);
+}
+
+.package-lines {
+  margin-top: 16px;
+  list-style: none;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.package-lines:empty {
+  display: none;
+}
+
+.package-remove {
+  flex: none;
+  padding: 8px 18px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: none;
+  font: inherit;
+  font-size: 0.85rem;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.package-remove:hover,
+.package-remove:focus-visible {
+  background: var(--menu-bg);
+  color: var(--cream);
+}
+
+.package-remove:focus-visible {
+  outline: 2px solid var(--cream);
+  outline-offset: 4px;
+}
+
 .field-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

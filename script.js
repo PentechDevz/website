@@ -264,6 +264,39 @@ if (copyBtn && navigator.clipboard) {
   copyBtn.hidden = true;
 }
 
+// A package picked on the pricing or custom packages page travels to the contact form for this tab.
+function savePackage(pkg) {
+  try {
+    sessionStorage.setItem("pd-package", JSON.stringify(pkg));
+  } catch {}
+}
+
+function loadPackage() {
+  try {
+    return JSON.parse(sessionStorage.getItem("pd-package"));
+  } catch {
+    return null;
+  }
+}
+
+function clearPackage() {
+  try {
+    sessionStorage.removeItem("pd-package");
+  } catch {}
+}
+
+document.querySelectorAll(".tier [data-package-need]").forEach((link) => {
+  link.addEventListener("click", () => {
+    const tier = link.closest(".tier");
+    savePackage({
+      name: `${tier.querySelector(".tier-name").textContent.trim()} package`,
+      price: tier.querySelector(".tier-price").textContent.replace(/\s+/g, " ").trim(),
+      need: link.dataset.packageNeed,
+      lines: [],
+    });
+  });
+});
+
 // Contact page: messages are delivered by EmailJS (emailjs.com), so the site needs no back end.
 // Each enquiry sends two emails: a notification to the team, then a thank-you to the customer.
 // Their designs and recipients (team copy to pentechdevs@gmail.com) are set in the EmailJS dashboard.
@@ -288,6 +321,32 @@ if (enquiryForm) {
     if (!response.ok) throw new Error(await response.text());
   }
 
+  // Show the package they picked above the form, and let them drop it
+  const packageCard = enquiryForm.querySelector(".package-pick");
+  let chosenPackage = loadPackage();
+
+  function showPackage() {
+    packageCard.hidden = !chosenPackage;
+    if (!chosenPackage) return;
+    packageCard.querySelector(".package-name").textContent = chosenPackage.name;
+    packageCard.querySelector(".package-price").textContent = chosenPackage.price;
+    packageCard.querySelector(".package-lines").replaceChildren(...chosenPackage.lines.map((line) => {
+      const li = document.createElement("li");
+      li.textContent = line;
+      return li;
+    }));
+    const needRadio = enquiryForm.querySelector(`input[name="need"][value="${chosenPackage.need}"]`);
+    if (needRadio) needRadio.checked = true;
+  }
+
+  packageCard.querySelector(".package-remove").addEventListener("click", () => {
+    chosenPackage = null;
+    clearPackage();
+    showPackage();
+  });
+
+  showPackage();
+
   enquiryForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const data = new FormData(enquiryForm);
@@ -301,14 +360,20 @@ if (enquiryForm) {
     try {
       // Bots tend to tick the hidden spam trap; act as if it sent, but don't use up the monthly quota.
       if (data.get("botcheck") !== "on") {
+        // A chosen package replaces "what do you need" in both emails, and its breakdown leads the message
+        const packageHtml = chosenPackage
+          ? [`<strong>${escapeHtml(chosenPackage.name)} (${escapeHtml(chosenPackage.price)})</strong>`,
+            ...chosenPackage.lines.map(escapeHtml)].join("<br>") + "<br><br>"
+          : "";
+
         const params = {
           name,
           email: data.get("email").trim(),
           company: company || "Not given",
           sender: company ? `${name} (${company})` : name,
-          need: data.get("need"),
+          need: chosenPackage ? `${chosenPackage.name} (${chosenPackage.price})` : data.get("need"),
           budget: data.get("budget"),
-          message_html: escapeHtml(data.get("message").trim()).replace(/\r?\n/g, "<br>"),
+          message_html: packageHtml + escapeHtml(data.get("message").trim()).replace(/\r?\n/g, "<br>"),
           received: new Date().toLocaleString("en-ZA", {
             timeZone: "Africa/Johannesburg",
             dateStyle: "full",
@@ -322,6 +387,9 @@ if (enquiryForm) {
       }
 
       enquiryForm.reset();
+      chosenPackage = null;
+      clearPackage();
+      showPackage();
       status.textContent = `Thanks, ${name}. Your message is on its way and we'll be in touch within one working day.`;
     } catch {
       status.textContent = `Sorry, your message couldn't be sent. Please try again, or email us directly at ${email}.`;
@@ -431,7 +499,7 @@ if (builder) {
   const totalEl = summary.querySelector(".summary-total");
   const sendLink = summary.querySelector(".summary-send");
   const pagesInput = builder.querySelector('input[name="pages"]');
-  const email = sendLink.href.slice("mailto:".length).split("?")[0];
+  let customPackage;
 
   const formatRand = (amount) => "R" + Math.round(amount).toLocaleString("en-ZA");
 
@@ -473,18 +541,19 @@ if (builder) {
     discountEl.textContent = "−" + formatRand(discount);
     totalEl.textContent = formatRand(total);
 
-    const body = [
-      "Hi Pentech Devs,",
-      "",
-      "I'd like a quote for this package:",
-      "",
-      ...lines.map((line) => `- ${line.label}: ${formatRand(line.price)}`),
-      "",
-      `Deal: ${deal.dataset.label}`,
-      `Estimated total: ${formatRand(total)}`,
-    ].join("\n");
-    sendLink.href = `mailto:${email}?subject=${encodeURIComponent("Custom package quote")}&body=${encodeURIComponent(body)}`;
+    customPackage = {
+      name: "Custom package",
+      price: `Estimated ${formatRand(total)}`,
+      need: "Website",
+      lines: [
+        ...lines.map((line) => `${line.label}: ${formatRand(line.price)}`),
+        ...(discount > 0 ? [`${deal.dataset.label}: −${formatRand(discount)}`] : []),
+      ],
+    };
   }
+
+  // "Send this to us" carries the estimate over to the contact form
+  sendLink.addEventListener("click", () => savePackage(customPackage));
 
   builder.querySelectorAll("[data-step]").forEach((btn) => {
     btn.addEventListener("click", () => {

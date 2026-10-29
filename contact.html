@@ -60,6 +60,18 @@
         <form class="enquiry-form" aria-label="Contact form" data-email="info@pentechdevs.com" data-service-id="service_ldqxfzj" data-template-id="template_zgag1id" data-reply-template-id="template_kx3jbj2" data-public-key="mHOvZHBNsm7fRUDoQ">
           <!-- Spam trap: hidden from people, bots tend to tick it -->
           <input class="enquiry-trap" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <!-- Filled in by script.js when someone arrives from a pricing package or the package builder -->
+          <div class="package-pick" hidden>
+            <div class="package-info">
+              <p class="package-label">Your package</p>
+              <p class="package-name"></p>
+              <p class="package-price"></p>
+              <ul class="package-lines"></ul>
+            </div>
+            <button class="package-remove" type="button">Remove</button>
+          </div>
+
           <fieldset class="builder-step">
             <legend class="builder-legend"><span class="builder-num">01</span>What do you need?</legend>
             <div class="option-grid option-grid-4">
