@@ -264,8 +264,9 @@ if (copyBtn && navigator.clipboard) {
   copyBtn.hidden = true;
 }
 
-// Contact page: messages are delivered to our inbox by EmailJS (emailjs.com), so the site needs no back end.
-// The email's design lives in email-templates/enquiry-notification.html, pasted into the EmailJS dashboard.
+// Contact page: messages are delivered by EmailJS (emailjs.com), so the site needs no back end.
+// Each enquiry sends two emails: a notification to the team, then a thank-you to the customer.
+// Their designs and recipients (team copy to pentechdevs@gmail.com) are set in the EmailJS dashboard.
 const enquiryForm = document.querySelector(".enquiry-form");
 
 if (enquiryForm) {
@@ -273,9 +274,19 @@ if (enquiryForm) {
   const sendBtn = enquiryForm.querySelector(".enquiry-send");
   const sendLabel = sendBtn.innerHTML;
   const email = enquiryForm.dataset.email;
+  const { serviceId, templateId, replyTemplateId, publicKey } = enquiryForm.dataset;
 
   const escapeHtml = (text) =>
     text.replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+
+  async function sendEmail(template, params) {
+    const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ service_id: serviceId, template_id: template, user_id: publicKey, template_params: params }),
+    });
+    if (!response.ok) throw new Error(await response.text());
+  }
 
   enquiryForm.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -290,30 +301,24 @@ if (enquiryForm) {
     try {
       // Bots tend to tick the hidden spam trap; act as if it sent, but don't use up the monthly quota.
       if (data.get("botcheck") !== "on") {
-        const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            service_id: enquiryForm.dataset.serviceId,
-            template_id: enquiryForm.dataset.templateId,
-            user_id: enquiryForm.dataset.publicKey,
-            template_params: {
-              name,
-              email: data.get("email").trim(),
-              company: company || "Not given",
-              sender: company ? `${name} (${company})` : name,
-              need: data.get("need"),
-              budget: data.get("budget"),
-              message_html: escapeHtml(data.get("message").trim()).replace(/\r?\n/g, "<br>"),
-              received: new Date().toLocaleString("en-ZA", {
-                timeZone: "Africa/Johannesburg",
-                dateStyle: "full",
-                timeStyle: "short",
-              }),
-            },
+        const params = {
+          name,
+          email: data.get("email").trim(),
+          company: company || "Not given",
+          sender: company ? `${name} (${company})` : name,
+          need: data.get("need"),
+          budget: data.get("budget"),
+          message_html: escapeHtml(data.get("message").trim()).replace(/\r?\n/g, "<br>"),
+          received: new Date().toLocaleString("en-ZA", {
+            timeZone: "Africa/Johannesburg",
+            dateStyle: "full",
+            timeStyle: "short",
           }),
-        });
-        if (!response.ok) throw new Error(await response.text());
+        };
+
+        // The team's copy is what matters, so only its failure counts as "couldn't be sent".
+        await sendEmail(templateId, params);
+        await sendEmail(replyTemplateId, params).catch(() => {});
       }
 
       enquiryForm.reset();
