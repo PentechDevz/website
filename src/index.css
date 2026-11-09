@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Archia";
+  src: url("./assets/fonts/archia-regular-webfont.woff2") format("woff2"),
+       url("./assets/fonts/archia-regular-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* The original site breaks at 1000px and 720px, so max-lg: and max-md: match those exactly */
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-md: 721px;
+  --breakpoint-lg: 1001px;
+
+  --color-ink: #111;
+  --color-cream: #f4f1ea;
+  --color-stone: #76736e;
+  --color-muted: #a9a59f;
+  --color-error: #e0a39a;
+
+  --font-sans: "Archia", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-rise-late: rise 0.9s var(--ease-smooth) 0.5s forwards;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-scroll-cue: scroll-cue 2s var(--ease-smooth) infinite;
+
+  @keyframes rise {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes scroll-cue {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(250%); }
+  }
+}
+
+@custom-variant touch (@media (hover: none));
+@custom-variant coarse (@media (hover: none), (pointer: coarse));
+
+/* Entrance for the hero and page headers; held while the intro loader is on screen */
+@utility rise-in {
+  opacity: 0;
+  transform: translateY(var(--rise-y, 20px));
+  animation: rise var(--rise-duration, 0.9s) var(--ease-smooth) var(--rise-delay, 0s) forwards;
+
+  :where(.is-loading) & {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+
+/* Cream-to-stone fade used on big numbers and second title lines */
+@utility text-fade {
+  background-image: linear-gradient(to bottom, var(--color-cream) 20%, var(--color-stone) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Deeper fade for giant numbers cut off by the line beneath them */
+@utility text-fade-deep {
+  background-image: linear-gradient(to bottom, var(--color-cream) 0%, var(--color-cream) 35%, var(--color-stone) 72%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Darkens the top and left of the hero photo so the nav and text stay readable */
+@utility bg-hero-shade {
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 30%),
+    linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 22%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 45%, rgba(0, 0, 0, 0) 70%);
+}
+
+@utility bg-select-arrow {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23f4f1ea' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 4px center;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    background: #000;
+    color: #fff;
+  }
+
+  body.menu-open,
+  .is-loading body {
+    overflow: hidden;
+  }
+
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    body.has-cursor,
+    body.has-cursor a,
+    body.has-cursor button {
+      cursor: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
