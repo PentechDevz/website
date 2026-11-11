@@ -1,45 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-       <loc>https://pentechdevs.com/</loc>
-       <lastmod>2026-10-29T06:58:43+00:00</lastmod>
-       <priority>1.0000</priority>
+    <loc>https://pentechdevs.com/</loc>
+    <lastmod>2026-11-11</lastmod>
   </url>
   <url>
-       <loc>https://pentechdevs.com/case-studies</loc>
-       <lastmod>2026-10-29T06:58:43+00:00</lastmod>
-       <priority>0.8000</priority>
+    <loc>https://pentechdevs.com/services</loc>
+    <lastmod>2026-11-11</lastmod>
   </url>
   <url>
-       <loc>https://pentechdevs.com/collective</loc>
-       <lastmod>2026-10-29T06:58:43+00:00</lastmod>
-       <priority>0.8000</priority>
+    <loc>https://pentechdevs.com/case-studies</loc>
+    <lastmod>2026-11-11</lastmod>
   </url>
   <url>
-       <loc>https://pentechdevs.com/perspectives</loc>
-       <lastmod>2026-10-29T06:58:43+00:00</lastmod>
-       <priority>0.8000</priority>
+    <loc>https://pentechdevs.com/collective</loc>
+    <lastmod>2026-11-11</lastmod>
   </url>
   <url>
-       <loc>https://pentechdevs.com/services</loc>
-       <lastmod>2026-10-29T06:58:43+00:00</lastmod>
-       <priority>0.8000</priority>
+    <loc>https://pentechdevs.com/perspectives</loc>
+    <lastmod>2026-11-11</lastmod>
   </url>
   <url>
-       <loc>https://pentechdevs.com/testimonies</loc>
-       <lastmod>2026-10-29T06:58:43+00:00</lastmod>
-       <priority>0.8000</priority>
+    <loc>https://pentechdevs.com/testimonies</loc>
+    <lastmod>2026-11-11</lastmod>
   </url>
   <url>
-       <loc>https://pentechdevs.com/pricing</loc>
-       <lastmod>2026-10-29T06:58:43+00:00</lastmod>
-       <priority>0.8000</priority>
+    <loc>https://pentechdevs.com/pricing</loc>
+    <lastmod>2026-11-11</lastmod>
   </url>
   <url>
-       <loc>https://pentechdevs.com/custom-packages</loc>
-       <lastmod>2026-10-29T06:58:43+00:00</lastmod>
-       <priority>0.6400</priority>
+    <loc>https://pentechdevs.com/custom-packages</loc>
+    <lastmod>2026-11-11</lastmod>
+  </url>
+  <url>
+    <loc>https://pentechdevs.com/contact</loc>
+    <lastmod>2026-11-11</lastmod>
   </url>
 </urlset>
